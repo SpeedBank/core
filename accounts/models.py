@@ -20,7 +20,7 @@ class Bank(TimestampMixin):
 
 class Branch(TimestampMixin):
     name = models.CharField(max_length=255)
-    sort_code = models.IntegerField(max_length=255)
+    sort_code = models.IntegerField()
     banner = models.CharField(max_length=255, null=True, blank=True)
     email = models.CharField(max_length=255)
     phone = models.CharField(max_length=20)
@@ -51,7 +51,7 @@ class BankAccount(TimestampMixin):
     bank = models.ForeignKey(Bank, related_name="bank_accounts")
     name = models.CharField(max_length=255)
     number = models.CharField(max_length=20)
-    speed_number = models.CharField(max_length=20)
+    speed_number = models.CharField(max_length=20, unique=True)
     phone = models.CharField(max_length=20, blank=True, null=True)
     email = models.CharField(max_length=255, blank=True, null=True)
     verified = models.BooleanField(default=False)
