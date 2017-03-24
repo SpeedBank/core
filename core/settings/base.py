@@ -128,3 +128,4 @@ STATICFILES_DIRS = (
 )
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media_cdn')
+HASHID_FIELD_SALT = dotenv.get('SECRET_KEY')

@@ -37,7 +37,7 @@ class Branch(TimestampMixin):
 
 class CustomerService(TimestampMixin):
     user = models.OneToOneField(User, related_name="customer_service")
-    branch = models.ForeignKey(User, related_name="customer_services")
+    branch = models.ForeignKey(Branch, related_name="customer_services")
     profile_image = models.CharField(max_length=255, blank=True, null=True)
     email = models.CharField(max_length=255)
     phone = models.CharField(max_length=20)
