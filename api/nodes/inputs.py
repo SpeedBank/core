@@ -168,10 +168,14 @@ class FaqUpdateInput(graphene.InputObjectType):
     answer = graphene.String(required=False)
 
 
-class CustomerQuestionInput(graphene.InputObjectType):
+class InquiryInput(graphene.InputObjectType):
     bank_id = graphene.Int(required=True)
+    branch_id = graphene.Int(required=False)
+    customer_service_id = graphene.Int(required=False)
     question = graphene.String(required=True)
+    is_resolved = graphene.Boolean(required=False)
 
 
-class CustomerQuestionUpdateInput(graphene.InputObjectType):
-    question = graphene.String(required=False)
+class InquiryUpdateInput(graphene.InputObjectType):
+    customer_service_id = graphene.Int(required=False)
+    is_resolved = graphene.Boolean(required=False)

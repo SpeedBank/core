@@ -1,5 +1,5 @@
 from django.contrib import admin
-from services.models import Faq, CustomerQuestion
+from services.models import Faq, Inquiry, Discussion
 
 
 @admin.register(Faq)
@@ -28,10 +28,10 @@ class FaqAdmin(admin.ModelAdmin):
         return field
 
 
-@admin.register(CustomerQuestion)
-class CustomerQuestionAdmin(admin.ModelAdmin):
+@admin.register(Inquiry)
+class InquiryAdmin(admin.ModelAdmin):
 
-    list_display = ('user', 'bank', 'question')
+    list_display = ('user', 'bank', 'customer_service', 'question', 'is_resolved')
 
     def get_queryset(self, request):
         """Limit Pages to those that belong to the request's user."""
@@ -54,6 +54,22 @@ class CustomerQuestionAdmin(admin.ModelAdmin):
         if db_field.name == 'user':
             field.queryset = field.queryset.filter(profile__bank=request.user.profile.bank)
 
+        if db_field.name == 'customer_service':
+            field.queryset = field.queryset.filter(branch__bank=request.user.profile.bank)
+
         return field
 
+
+@admin.register(Discussion)
+class DiscussionAdmin(admin.ModelAdmin):
+
+    list_display = ('user', 'recipient', 'inquiry')
+
+    def get_queryset(self, request):
+        """Limit Pages to those that belong to the request's user."""
+        qs = super().get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+
+        return qs.filter(inquiry__bank=request.user.profile.bank)
 

@@ -12,8 +12,8 @@ from api.nodes.bank_account import (
 from api.nodes.faq import (
     FaqNode, CreateFaq, UpdateFaq, DeleteFaq
 )
-from api.nodes.customer_question import (
-    CustomerQuestionNode, CreateCustomerQuestion, UpdateCustomerQuestion, DeleteCustomerQuestion
+from api.nodes.inquiry import (
+    InquiryNode, CreateInquiry, UpdateInquiry, DeleteInquiry
 )
 from api.nodes.customer_service_review import (
     CustomerServiceReviewNode, CreateCustomerServiceReview
@@ -45,8 +45,8 @@ class Query(graphene.AbstractType):
     faq = graphene.relay.Node.Field(FaqNode)
     faqs = DjangoFilterConnectionField(FaqNode)
 
-    customer_question = graphene.relay.Node.Field(CustomerQuestionNode)
-    customer_questions = DjangoFilterConnectionField(CustomerQuestionNode)
+    inquiry = graphene.relay.Node.Field(InquiryNode)
+    inquiries = DjangoFilterConnectionField(InquiryNode)
 
     customer_service_review = graphene.relay.Node.Field(CustomerServiceReviewNode)
     customer_service_reviews = DjangoFilterConnectionField(CustomerServiceReviewNode)
@@ -83,9 +83,9 @@ class Mutation(graphene.ObjectType):
     update_faq = UpdateFaq.Field()
     delete_faq = DeleteFaq.Field()
 
-    create_customer_question = CreateCustomerQuestion.Field()
-    update_customer_question = UpdateCustomerQuestion.Field()
-    delete_customer_question = DeleteCustomerQuestion.Field()
+    create_inquiry = CreateInquiry.Field()
+    update_inquiry = UpdateInquiry.Field()
+    delete_inquiry = DeleteInquiry.Field()
 
     create_bank_account_opening = CreateBankAccountOpening.Field()
     update_bank_account_opening = UpdateBankAccountOpening.Field()

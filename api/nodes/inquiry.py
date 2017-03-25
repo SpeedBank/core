@@ -1,36 +1,36 @@
 import graphene
 from graphene_django import DjangoObjectType
 
-from api.nodes.inputs import CustomerQuestionInput, CustomerQuestionUpdateInput
+from api.nodes.inputs import InquiryInput, InquiryUpdateInput
 from .shared import CreateUpdateNode, DeleteNode
-from services.models import CustomerQuestion
-from accounts.models import Bank
+from services.models import Inquiry
+from accounts.models import Bank, Branch
 
 
-class CustomerQuestionNode(DjangoObjectType):
+class InquiryNode(DjangoObjectType):
     original_id = graphene.Int()
 
     class Meta:
-        model = CustomerQuestion
+        model = Inquiry
         interfaces = (graphene.relay.Node, )
 
     def resolve_original_id(self, args, context, info):
         return self.id
 
 
-class CreateCustomerQuestion(CreateUpdateNode, graphene.relay.ClientIDMutation):
-    model = CustomerQuestion
+class CreateInquiry(CreateUpdateNode, graphene.relay.ClientIDMutation):
+    model = Inquiry
     input_key = "data"
 
     class Input:
-        data = graphene.Argument(CustomerQuestionInput)
+        data = graphene.Argument(InquiryInput)
 
-    customer_question = graphene.Field(CustomerQuestionNode)
+    inquiry = graphene.Field(InquiryNode)
     errors = graphene.List(graphene.String)
 
     @classmethod
     def result(cls, record, errors={}):
-        return cls(customer_question=record, errors=errors)
+        return cls(inquiry=record, errors=errors)
 
     @classmethod
     def perform_extra(cls, record, args):
@@ -40,35 +40,40 @@ class CreateCustomerQuestion(CreateUpdateNode, graphene.relay.ClientIDMutation):
             if bank:
                 record.bank = bank
 
+        if data and data.get('branch_id'):
+            branch = Branch.objects.get(id=data.get('branch_id'))
+            if branch:
+                record.branch = branch
+
         return record
 
 
-class UpdateCustomerQuestion(CreateUpdateNode, graphene.relay.ClientIDMutation):
-    model = CustomerQuestion
+class UpdateInquiry(CreateUpdateNode, graphene.relay.ClientIDMutation):
+    model = Inquiry
     input_key = "data"
     create = False
 
     class Input:
         id = graphene.String(required=True)
-        data = graphene.Argument(CustomerQuestionUpdateInput)
+        data = graphene.Argument(InquiryUpdateInput)
 
-    customer_question = graphene.Field(CustomerQuestionNode)
+    inquiry = graphene.Field(InquiryNode)
     errors = graphene.List(graphene.String)
 
     @classmethod
     def result(cls, record, errors={}):
-        return cls(customer_question=record, errors=errors)
+        return cls(inquiry=record, errors=errors)
 
 
-class DeleteCustomerQuestion(DeleteNode):
-    model = CustomerQuestion
+class DeleteInquiry(DeleteNode):
+    model = Inquiry
 
     class Input:
         id = graphene.String(required=True)
 
     deleted = graphene.Boolean()
-    customer_question = graphene.Field(CustomerQuestionNode)
+    inquiry = graphene.Field(InquiryNode)
 
     @classmethod
     def result(cls, deleted, record):
-        return cls(deleted=deleted, customer_question=record)
+        return cls(deleted=deleted, inquiry=record)
