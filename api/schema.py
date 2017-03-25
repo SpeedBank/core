@@ -9,6 +9,9 @@ from api.nodes.customer_service import (
 from api.nodes.bank_account import (
     BankAccountNode, CreateBankAccount, UpdateBankAccount, DeleteBankAccount
 )
+from api.nodes.faq import (
+    FaqNode, CreateFaq, UpdateFaq, DeleteFaq
+)
 
 
 class Query(graphene.AbstractType):
@@ -26,6 +29,9 @@ class Query(graphene.AbstractType):
 
     bank_account = graphene.relay.Node.Field(BankAccountNode)
     bank_accounts = DjangoFilterConnectionField(BankAccountNode)
+
+    faq = graphene.relay.Node.Field(FaqNode)
+    faqs = DjangoFilterConnectionField(FaqNode)
 
 
 class Mutation(graphene.ObjectType):
@@ -48,3 +54,7 @@ class Mutation(graphene.ObjectType):
     create_bank_account = CreateBankAccount.Field()
     update_bank_account = UpdateBankAccount.Field()
     delete_bank_account = DeleteBankAccount.Field()
+
+    create_faq = CreateFaq.Field()
+    update_faq = UpdateFaq.Field()
+    delete_faq = DeleteFaq.Field()

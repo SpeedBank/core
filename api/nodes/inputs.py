@@ -102,3 +102,14 @@ class BankAccountUpdateInput(graphene.InputObjectType):
     phone = graphene.String(required=False)
     email = graphene.String(required=False)
     verified = graphene.Boolean(required=False)
+
+
+class FaqInput(graphene.InputObjectType):
+    bank_id = graphene.Int(required=True)
+    question = graphene.String(required=True)
+    answer = graphene.String(required=True)
+
+
+class FaqUpdateInput(graphene.InputObjectType):
+    question = graphene.String(required=False)
+    answer = graphene.String(required=False)
