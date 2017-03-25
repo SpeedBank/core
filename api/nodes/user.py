@@ -86,7 +86,8 @@ class UpdateUser(graphene.relay.ClientIDMutation):
         user_data = args.get("user_data")
         customer_service_data = args.get("customer_service_data")
         user = get_load_object(User,  args.get('id'), user_data, ['id', 'password'])
-        customer_service = load_object(user.customer_service, customer_service_data)
+        customer_service = CustomerService.objects.get(user=user)
+        customer_service = load_object(customer_service, customer_service_data)
         if user_data.get('password'):
             user.set_password(user_data.get('password'))
 
