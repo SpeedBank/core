@@ -30,3 +30,27 @@ class UserUpdateInput(graphene.InputObjectType):
     email = graphene.String(required=False)
     is_active = graphene.Boolean(required=False)
     password = graphene.String(required=False)
+
+
+class BankInput(graphene.InputObjectType):
+    name = graphene.String(required=True)
+    logo = graphene.String(required=False)
+    banner = graphene.String(required=False)
+    address = graphene.String(required=False)
+    city = graphene.String(required=False)
+    state = graphene.String(required=False)
+    country = graphene.String(required=False)
+    latitude = graphene.Float(required=False)
+    longitude = graphene.Float(required=False)
+
+
+class BankUpdateInput(graphene.InputObjectType):
+    name = graphene.String(required=False)
+    logo = graphene.String(required=False)
+    banner = graphene.String(required=False)
+    address = graphene.String(required=False)
+    city = graphene.String(required=False)
+    state = graphene.String(required=False)
+    country = graphene.String(required=False)
+    latitude = graphene.Float(required=False)
+    longitude = graphene.Float(required=False)
