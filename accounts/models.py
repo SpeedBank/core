@@ -59,6 +59,15 @@ class CustomerService(TimestampMixin):
         return self.user.username
 
 
+class CustomerServiceReview(TimestampMixin):
+    customer_service = models.ForeignKey(CustomerService, related_name="reviews")
+    star = models.IntegerField(default=0)
+    message = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return self.customer_service.user.username
+
+
 class BankAccount(TimestampMixin):
     user = models.ForeignKey(User, related_name="bank_accounts")
     bank = models.ForeignKey(Bank, related_name="bank_accounts")

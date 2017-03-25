@@ -1,5 +1,5 @@
 from django.contrib import admin
-from accounts.models import Bank, Branch, CustomerService, BankAccount, Profile, BranchReview
+from accounts.models import Bank, Branch, CustomerService, BankAccount, Profile, BranchReview, CustomerServiceReview
 from django.contrib.auth.models import User
 
 admin.site.unregister(User)
@@ -93,4 +93,18 @@ class BranchReviewAdmin(admin.ModelAdmin):
                 return qs
 
             return qs.filter(branch__bank=request.user.profile.bank)
+
+
+@admin.register(CustomerServiceReview)
+class CustomerServiceReviewAdmin(admin.ModelAdmin):
+
+        list_display = ('customer_service', 'star', 'message')
+
+        def get_queryset(self, request):
+            """Limit Pages to those that belong to the request's user."""
+            qs = super().get_queryset(request)
+            if request.user.is_superuser:
+                return qs
+
+            return qs.filter(customer_service__branch__bank=request.user.profile.bank)
 
