@@ -1,19 +1,6 @@
 import graphene
 
 
-class CustomerServiceInput(graphene.InputObjectType):
-    branch_id = graphene.Int(required=True)
-    profile_image = graphene.String(required=False)
-    email = graphene.String(required=True)
-    phone = graphene.String(required=True)
-
-
-class CustomerServiceUpdateInput(graphene.InputObjectType):
-    profile_image = graphene.String(required=False)
-    email = graphene.String(required=False)
-    phone = graphene.String(required=False)
-
-
 class UserInput(graphene.InputObjectType):
     username = graphene.String(required=True)
     first_name = graphene.String(required=True)
@@ -83,3 +70,18 @@ class BranchUpdateInput(graphene.InputObjectType):
     country = graphene.String(required=False)
     latitude = graphene.Float(required=False)
     longitude = graphene.Float(required=False)
+
+
+class CustomerServiceInput(graphene.InputObjectType):
+    user_id = graphene.String(required=True)
+    branch_id = graphene.String(required=True)
+    profile_image = graphene.String(required=False)
+    email = graphene.String(required=False)
+    phone = graphene.String(required=False)
+
+
+class CustomerServiceUpdateInput(graphene.InputObjectType):
+    branch_id = graphene.String(required=False)
+    profile_image = graphene.String(required=False)
+    email = graphene.String(required=False)
+    phone = graphene.String(required=False)
