@@ -46,5 +46,9 @@ class ApiTokenView(View):
             data = {'message': 'Unauthorized.'}
             return JsonResponse(data, status=401)
 
-        data = {'token': api_token.token.hashid}
+        data = {
+            'token': api_token.token.hashid, 'username': response.username,
+            'first_name': response.first_name, 'last_name': response.last_name,
+            'is_active': response.is_active, 'id': response.id, 'email': response.email
+        }
         return JsonResponse(data, status=201 if created else 200)
