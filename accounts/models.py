@@ -86,7 +86,6 @@ class BankAccountOpening(TimestampMixin):
     user = models.ForeignKey(User, related_name="bank_account_openings")
     bank = models.ForeignKey(Bank, related_name="bank_account_openings")
     branch = models.ForeignKey(Branch, related_name="bank_account_openings")
-    name = models.CharField(max_length=255)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     middle_name = models.CharField(max_length=255, null=True, blank=True)

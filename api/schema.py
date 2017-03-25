@@ -21,6 +21,9 @@ from api.nodes.customer_service_review import (
 from api.nodes.branch_review import (
     BranchReviewNode, CreateBranchReview
 )
+from api.nodes.bank_account_opening import (
+    BankAccountOpeningNode, CreateBankAccountOpening, UpdateBankAccountOpening, DeleteBankAccountOpening
+)
 
 
 class Query(graphene.AbstractType):
@@ -51,6 +54,9 @@ class Query(graphene.AbstractType):
     branch_review = graphene.relay.Node.Field(BranchReviewNode)
     branch_reviews = DjangoFilterConnectionField(BranchReviewNode)
 
+    bank_account_opening = graphene.relay.Node.Field(BankAccountOpeningNode)
+    bank_account_openings = DjangoFilterConnectionField(BankAccountOpeningNode)
+
 
 class Mutation(graphene.ObjectType):
     create_user = CreateUser.Field()
@@ -80,6 +86,10 @@ class Mutation(graphene.ObjectType):
     create_customer_question = CreateCustomerQuestion.Field()
     update_customer_question = UpdateCustomerQuestion.Field()
     delete_customer_question = DeleteCustomerQuestion.Field()
+
+    create_bank_account_opening = CreateBankAccountOpening.Field()
+    update_bank_account_opening = UpdateBankAccountOpening.Field()
+    delete_bank_account_opening = DeleteBankAccountOpening.Field()
 
     create_customer_service_review = CreateCustomerServiceReview.Field()
     create_branch_review = CreateBranchReview.Field()

@@ -107,6 +107,48 @@ class BankAccountInput(graphene.InputObjectType):
     verified = graphene.Boolean(required=False)
 
 
+class BankAccountOpeningInput(graphene.InputObjectType):
+    bank_id = graphene.Int(required=True)
+    branch_id = graphene.Int(required=True)
+    phone = graphene.String(required=False)
+    email = graphene.String(required=False)
+    first_name = graphene.String(required=False)
+    last_name = graphene.String(required=False)
+    middle_name = graphene.String(required=False)
+    address_1 = graphene.String(required=False)
+    address_2 = graphene.String(required=False)
+    date_of_birth = graphene.String(required=False)
+    gender = graphene.String(required=False)
+    state = graphene.String(required=False)
+    religion = graphene.String(required=False)
+    bvn = graphene.String(required=False)
+    photo = graphene.String(required=False)
+    signature = graphene.String(required=False)
+    valid_id = graphene.String(required=False)
+    is_pending = graphene.Boolean(required=False)
+
+
+class BankAccountOpeningUpdateInput(graphene.InputObjectType):
+    bank_id = graphene.Int(required=False)
+    branch_id = graphene.Int(required=False)
+    phone = graphene.String(required=False)
+    email = graphene.String(required=False)
+    first_name = graphene.String(required=False)
+    last_name = graphene.String(required=False)
+    middle_name = graphene.String(required=False)
+    address_1 = graphene.String(required=False)
+    address_2 = graphene.String(required=False)
+    date_of_birth = graphene.String(required=False)
+    gender = graphene.String(required=False)
+    state = graphene.String(required=False)
+    religion = graphene.String(required=False)
+    bvn = graphene.String(required=False)
+    photo = graphene.String(required=False)
+    signature = graphene.String(required=False)
+    valid_id = graphene.String(required=False)
+    is_pending = graphene.Boolean(required=False)
+
+
 class BankAccountUpdateInput(graphene.InputObjectType):
     name = graphene.String(required=False)
     number = graphene.String(required=False)
