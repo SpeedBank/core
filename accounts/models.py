@@ -1,14 +1,14 @@
+from cloudinary.models import CloudinaryField
 from django.db import models
 from django.contrib.auth.models import User
 from accounts.mixins import TimestampMixin
-from core.utils import logo_location, banner_location, profile_location
 from geoposition.fields import GeopositionField
 
 
 class Bank(TimestampMixin):
     name = models.CharField(max_length=255)
-    logo = models.ImageField(upload_to=logo_location, null=True, blank=True)
-    banner = models.ImageField(upload_to=banner_location, null=True, blank=True)
+    logo = CloudinaryField('logo', null=True, blank=True)
+    banner = CloudinaryField('banner', null=True, blank=True)
     address = models.CharField(max_length=255)
     city = models.CharField(max_length=255)
     state = models.CharField(max_length=205)
@@ -23,7 +23,7 @@ class Branch(TimestampMixin):
     bank = models.ForeignKey(Bank, related_name="branches")
     name = models.CharField(max_length=255)
     sort_code = models.IntegerField()
-    banner = models.ImageField(upload_to=banner_location, null=True, blank=True)
+    banner = CloudinaryField('banner', null=True, blank=True)
     email = models.CharField(max_length=255)
     phone = models.CharField(max_length=20)
     address = models.CharField(max_length=255)
@@ -51,7 +51,7 @@ class BranchReview(TimestampMixin):
 class CustomerService(TimestampMixin):
     user = models.OneToOneField(User, related_name="customer_service")
     branch = models.ForeignKey(Branch, related_name="customer_services")
-    profile_image = models.ImageField(upload_to=profile_location, null=True, blank=True)
+    profile_image = CloudinaryField('profile_image', null=True, blank=True)
     email = models.CharField(max_length=255)
     phone = models.CharField(max_length=20)
 
@@ -110,7 +110,7 @@ class BankAccountOpening(TimestampMixin):
 class Profile(TimestampMixin):
     user = models.OneToOneField(User, related_name="profile")
     bank = models.ForeignKey(Bank, related_name="profiles", null=True, blank=True)
-    profile_image = models.ImageField(upload_to=profile_location, null=True, blank=True)
+    profile_image = CloudinaryField('profile_image', null=True, blank=True)
     email = models.CharField(max_length=255)
     phone = models.CharField(max_length=20)
 

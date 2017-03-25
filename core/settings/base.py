@@ -1,6 +1,7 @@
 
 import os
 import dotenv
+import cloudinary
 
 dotenv.load()
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -134,4 +135,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media_cdn')
 HASHID_FIELD_SALT = dotenv.get('SECRET_KEY')
 GRAPPELLI_ADMIN_TITLE = "Speed Bank"
 GEOPOSITION_GOOGLE_MAPS_API_KEY = 'AIzaSyCrkvQ3QbFnYRVMGhMQgHnzyn_VjIAOSPw'
-
+cloudinary.config(
+  cloud_name = "dfsbzqadc",
+  api_key = "927822459139272",
+  api_secret = "TjOmm1YYA1rU8JmK8be4LT_6ocg"
+)
