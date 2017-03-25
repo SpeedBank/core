@@ -8,13 +8,22 @@ from accounts.models import Branch, Bank
 
 class BranchNode(DjangoObjectType):
     original_id = graphene.Int()
+    latitude = graphene.Float()
+    longitude = graphene.Float()
 
     class Meta:
         model = Branch
+        exclude_fields = ['location']
         interfaces = (graphene.relay.Node, )
 
     def resolve_original_id(self, args, context, info):
         return self.id
+
+    def resolve_latitude(self, args, context, info):
+        return self.location.latitude
+
+    def resolve_longitude(self, args, context, info):
+        return self.location.longitude
 
 
 class CreateBranch(CreateUpdateNode, graphene.relay.ClientIDMutation):
