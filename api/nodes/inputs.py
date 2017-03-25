@@ -85,3 +85,20 @@ class CustomerServiceUpdateInput(graphene.InputObjectType):
     profile_image = graphene.String(required=False)
     email = graphene.String(required=False)
     phone = graphene.String(required=False)
+
+
+class BankAccountInput(graphene.InputObjectType):
+    bank_id = graphene.Int(required=True)
+    name = graphene.String(required=True)
+    number = graphene.String(required=True)
+    phone = graphene.String(required=False)
+    email = graphene.String(required=False)
+    verified = graphene.Boolean(required=False)
+
+
+class BankAccountUpdateInput(graphene.InputObjectType):
+    name = graphene.String(required=False)
+    number = graphene.String(required=False)
+    phone = graphene.String(required=False)
+    email = graphene.String(required=False)
+    verified = graphene.Boolean(required=False)

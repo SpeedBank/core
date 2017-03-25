@@ -6,6 +6,9 @@ from api.nodes.branch import BranchNode, CreateBranch, UpdateBranch, DeleteBranc
 from api.nodes.customer_service import (
     CustomerServiceNode, CreateCustomerService, UpdateCustomerService, DeleteCustomerService
 )
+from api.nodes.bank_account import (
+    BankAccountNode, CreateBankAccount, UpdateBankAccount, DeleteBankAccount
+)
 
 
 class Query(graphene.AbstractType):
@@ -20,6 +23,9 @@ class Query(graphene.AbstractType):
 
     customer_service = graphene.relay.Node.Field(CustomerServiceNode)
     customer_services = DjangoFilterConnectionField(CustomerServiceNode)
+
+    bank_account = graphene.relay.Node.Field(BankAccountNode)
+    bank_accounts = DjangoFilterConnectionField(BankAccountNode)
 
 
 class Mutation(graphene.ObjectType):
@@ -38,3 +44,7 @@ class Mutation(graphene.ObjectType):
     create_customer_service = CreateCustomerService.Field()
     update_customer_service = UpdateCustomerService.Field()
     delete_customer_service = DeleteCustomerService.Field()
+
+    create_bank_account = CreateBankAccount.Field()
+    update_bank_account = UpdateBankAccount.Field()
+    delete_bank_account = DeleteBankAccount.Field()
