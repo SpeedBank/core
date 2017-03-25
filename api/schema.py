@@ -15,6 +15,12 @@ from api.nodes.faq import (
 from api.nodes.customer_question import (
     CustomerQuestionNode, CreateCustomerQuestion, UpdateCustomerQuestion, DeleteCustomerQuestion
 )
+from api.nodes.customer_service_review import (
+    CustomerServiceReviewNode, CreateCustomerServiceReview
+)
+from api.nodes.branch_review import (
+    BranchReviewNode, CreateBranchReview
+)
 
 
 class Query(graphene.AbstractType):
@@ -38,6 +44,12 @@ class Query(graphene.AbstractType):
 
     customer_question = graphene.relay.Node.Field(CustomerQuestionNode)
     customer_questions = DjangoFilterConnectionField(CustomerQuestionNode)
+
+    customer_service_review = graphene.relay.Node.Field(CustomerServiceReviewNode)
+    customer_service_reviews = DjangoFilterConnectionField(CustomerServiceReviewNode)
+
+    branch_review = graphene.relay.Node.Field(BranchReviewNode)
+    branch_reviews = DjangoFilterConnectionField(BranchReviewNode)
 
 
 class Mutation(graphene.ObjectType):
@@ -68,3 +80,6 @@ class Mutation(graphene.ObjectType):
     create_customer_question = CreateCustomerQuestion.Field()
     update_customer_question = UpdateCustomerQuestion.Field()
     delete_customer_question = DeleteCustomerQuestion.Field()
+
+    create_customer_service_review = CreateCustomerServiceReview.Field()
+    create_branch_review = CreateBranchReview.Field()

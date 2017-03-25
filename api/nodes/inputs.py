@@ -71,12 +71,24 @@ class BranchUpdateInput(graphene.InputObjectType):
     longitude = graphene.Float(required=False)
 
 
+class BranchReviewInput(graphene.InputObjectType):
+    branch_id = graphene.Int(required=True)
+    star = graphene.Int(required=True)
+    message = graphene.String(required=False)
+
+
 class CustomerServiceInput(graphene.InputObjectType):
     user_id = graphene.String(required=True)
     branch_id = graphene.String(required=True)
     profile_image = graphene.String(required=False)
     email = graphene.String(required=False)
     phone = graphene.String(required=False)
+
+
+class CustomerServiceReviewInput(graphene.InputObjectType):
+    customer_service_id = graphene.Int(required=True)
+    star = graphene.Int(required=True)
+    message = graphene.String(required=False)
 
 
 class CustomerServiceUpdateInput(graphene.InputObjectType):
