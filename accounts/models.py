@@ -82,6 +82,32 @@ class BankAccount(TimestampMixin):
         return self.name
 
 
+class BankAccountOpening(TimestampMixin):
+    user = models.ForeignKey(User, related_name="bank_account_openings")
+    bank = models.ForeignKey(Bank, related_name="bank_account_openings")
+    branch = models.ForeignKey(Branch, related_name="bank_account_openings")
+    name = models.CharField(max_length=255)
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    middle_name = models.CharField(max_length=255, null=True, blank=True)
+    address_1 = models.CharField(max_length=255)
+    address_2 = models.CharField(max_length=255, null=True, blank=True)
+    date_of_birth = models.DateField(null=True, blank=True)
+    gender = models.CharField(max_length=2)
+    phone = models.CharField(max_length=20, blank=True, null=True)
+    email = models.CharField(max_length=255, blank=True, null=True)
+    state = models.CharField(max_length=255, blank=True, null=True)
+    religion = models.CharField(max_length=255, blank=True, null=True)
+    bvn = models.CharField(max_length=255, blank=True, null=True)
+    photo = models.CharField(max_length=255, blank=True, null=True)
+    signature = models.CharField(max_length=255, blank=True, null=True)
+    valid_id = models.CharField(max_length=255, blank=True, null=True)
+    is_pending = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.user.username
+
+
 class Profile(TimestampMixin):
     user = models.OneToOneField(User, related_name="profile")
     bank = models.ForeignKey(Bank, related_name="profiles", null=True, blank=True)
