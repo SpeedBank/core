@@ -1,5 +1,22 @@
 from django.contrib import admin
-from accounts.models import Bank, Branch, CustomerService, BankAccount
+from accounts.models import Bank, Branch, CustomerService, BankAccount, Profile, BranchReview
+from django.contrib.auth.models import User
+
+admin.site.unregister(User)
+
+
+@admin.register(User)
+class UserAdmin(admin.ModelAdmin):
+
+    list_display = ('username', 'email', 'first_name', 'last_name', 'is_staff', 'is_active')
+
+    def get_queryset(self, request):
+        """Limit Pages to those that belong to the request's user."""
+        qs = super().get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+
+        return qs.filter(profile__bank=request.user.profile.bank)
 
 
 @admin.register(Bank)
@@ -11,7 +28,15 @@ class BankAdmin(admin.ModelAdmin):
 @admin.register(Branch)
 class BranchAdmin(admin.ModelAdmin):
 
-    list_display = ('name', 'sort_code', 'address', 'city', 'state', 'country')
+    list_display = ('bank', 'name', 'sort_code', 'address', 'city', 'state', 'country')
+
+    def get_queryset(self, request):
+        """Limit Pages to those that belong to the request's user."""
+        qs = super().get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+
+        return qs.filter(bank=request.user.profile.bank)
 
 
 @admin.register(CustomerService)
@@ -19,8 +44,53 @@ class CustomerServiceAdmin(admin.ModelAdmin):
 
     list_display = ('user', 'phone', 'email', 'branch')
 
+    def get_queryset(self, request):
+        """Limit Pages to those that belong to the request's user."""
+        qs = super().get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+
+        return qs.filter(branch__bank=request.user.profile.bank)
+
 
 @admin.register(BankAccount)
-class CustomerServiceAdmin(admin.ModelAdmin):
+class BankAccountAdmin(admin.ModelAdmin):
 
-    list_display = ('name', 'number', 'speed_number', 'phone')
+    list_display = ('bank', 'name', 'number', 'speed_number', 'phone')
+
+    def get_queryset(self, request):
+        """Limit Pages to those that belong to the request's user."""
+        qs = super().get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+
+        return qs.filter(bank=request.user.profile.bank)
+
+
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
+
+        list_display = ('user', 'email', 'phone')
+
+        def get_queryset(self, request):
+            """Limit Pages to those that belong to the request's user."""
+            qs = super().get_queryset(request)
+            if request.user.is_superuser:
+                return qs
+
+            return qs.filter(bank=request.user.profile.bank)
+
+
+@admin.register(BranchReview)
+class BranchReviewAdmin(admin.ModelAdmin):
+
+        list_display = ('branch', 'star', 'message')
+
+        def get_queryset(self, request):
+            """Limit Pages to those that belong to the request's user."""
+            qs = super().get_queryset(request)
+            if request.user.is_superuser:
+                return qs
+
+            return qs.filter(branch__bank=request.user.profile.bank)
+

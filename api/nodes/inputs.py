@@ -27,7 +27,6 @@ class BankInput(graphene.InputObjectType):
     city = graphene.String(required=False)
     state = graphene.String(required=False)
     country = graphene.String(required=False)
-    latitude = graphene.Float(required=False)
     longitude = graphene.Float(required=False)
 
 
@@ -113,3 +112,12 @@ class FaqInput(graphene.InputObjectType):
 class FaqUpdateInput(graphene.InputObjectType):
     question = graphene.String(required=False)
     answer = graphene.String(required=False)
+
+
+class CustomerQuestionInput(graphene.InputObjectType):
+    bank_id = graphene.Int(required=True)
+    question = graphene.String(required=True)
+
+
+class CustomerQuestionUpdateInput(graphene.InputObjectType):
+    question = graphene.String(required=False)
