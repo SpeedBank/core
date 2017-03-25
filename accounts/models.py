@@ -117,3 +117,32 @@ class Profile(TimestampMixin):
     def __str__(self):
         return self.user.last_name
 
+
+class OrderType(TimestampMixin):
+    bank = models.ForeignKey(Bank, related_name="order_types", null=True, blank=True)
+    title = models.CharField(max_length=255)
+    price = models.FloatField(default=0)
+    requirements = models.TextField(null=True, blank=True)
+    require_confirmation = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.title
+
+
+class Order(TimestampMixin):
+    user = models.ForeignKey(User, related_name="orders")
+    bank_account = models.ForeignKey(BankAccount, related_name="orders")
+    branch = models.ForeignKey(Branch, related_name="orders")
+    customer_service = models.ForeignKey(CustomerService, related_name="orders", null=True, blank=True)
+    order_type = models.ForeignKey(OrderType, related_name="orders")
+    amount = models.FloatField(default=0)
+    message = models.TextField()
+    comment = models.TextField(null=True, blank=True)
+    is_confirmed = models.BooleanField(default=False)
+    in_process = models.BooleanField(default=False)
+    is_ready = models.BooleanField(default=False)
+    is_complete = models.BooleanField(default=False)
+    is_canceled = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.user.last_name

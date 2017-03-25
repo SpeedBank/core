@@ -1,7 +1,7 @@
 from django.contrib import admin
 from accounts.models import (
     Bank, Branch, CustomerService, BankAccount, Profile, BranchReview, CustomerServiceReview,
-    BankAccountOpening
+    BankAccountOpening, OrderType, Order
 )
 from django.contrib.auth.models import User
 
@@ -124,3 +124,32 @@ class BankAccountOpeningAdmin(admin.ModelAdmin):
                 return qs
 
             return qs.filter(branch__bank=request.user.profile.bank)
+
+
+@admin.register(OrderType)
+class OrderTypeAdmin(admin.ModelAdmin):
+
+        list_display = ('bank', 'title', 'price', 'require_confirmation')
+
+        def get_queryset(self, request):
+            """Limit Pages to those that belong to the request's user."""
+            qs = super().get_queryset(request)
+            if request.user.is_superuser:
+                return qs
+
+            return qs.filter(bank=request.user.profile.bank)
+
+
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+
+        list_display = ('user', 'bank_account', 'order_type', 'amount', 'is_confirmed',
+                        'in_process', 'is_ready', 'is_complete')
+
+        def get_queryset(self, request):
+            """Limit Pages to those that belong to the request's user."""
+            qs = super().get_queryset(request)
+            if request.user.is_superuser:
+                return qs
+
+            return qs.filter(bank_account__bank=request.user.profile.bank)

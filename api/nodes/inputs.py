@@ -185,3 +185,15 @@ class DiscussionInput(graphene.InputObjectType):
     recipient_id = graphene.Int(required=True)
     inquiry_id = graphene.Int(required=True)
     message = graphene.String(required=True)
+
+
+class OrderInput(graphene.InputObjectType):
+    message = graphene.String(required=True)
+    bank_account_id = graphene.Int(required=True)
+    branch_id = graphene.Int(required=True)
+    order_type_id = graphene.Int(required=True)
+
+
+class OrderUpdateInput(graphene.InputObjectType):
+    is_confirmed = graphene.Boolean(required=False)
+    is_canceled = graphene.Boolean(required=False)

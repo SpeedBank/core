@@ -27,6 +27,9 @@ from api.nodes.bank_account_opening import (
 from api.nodes.discussion import (
     DiscussionNode, CreateDiscussion, DeleteDiscussion
 )
+from api.nodes.order import (
+    OrderNode, CreateOrder, UpdateOrder, DeleteOrder
+)
 
 
 class Query(graphene.AbstractType):
@@ -63,6 +66,9 @@ class Query(graphene.AbstractType):
     discussion = graphene.relay.Node.Field(DiscussionNode)
     discussions = DjangoFilterConnectionField(DiscussionNode)
 
+    order = graphene.relay.Node.Field(OrderNode)
+    orders = DjangoFilterConnectionField(OrderNode)
+
 
 class Mutation(graphene.ObjectType):
     create_user = CreateUser.Field()
@@ -92,6 +98,10 @@ class Mutation(graphene.ObjectType):
     create_inquiry = CreateInquiry.Field()
     update_inquiry = UpdateInquiry.Field()
     delete_inquiry = DeleteInquiry.Field()
+
+    create_order = CreateOrder.Field()
+    update_order = UpdateOrder.Field()
+    delete_order = DeleteOrder.Field()
 
     create_bank_account_opening = CreateBankAccountOpening.Field()
     update_bank_account_opening = UpdateBankAccountOpening.Field()
