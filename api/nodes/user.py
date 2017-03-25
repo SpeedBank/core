@@ -6,18 +6,24 @@ from graphene_django import DjangoObjectType
 
 from .utils import get_object, get_errors, load_object, get_load_object
 from api.nodes.inputs import UserInput, UserUpdateInput, CustomerServiceInput, CustomerServiceUpdateInput
-from accounts.models import CustomerService, Branch
+from accounts.models import CustomerService, Branch, Profile
 from .shared import GetNodeByUser
 
 
-class CustomerServiceNode(DjangoObjectType):
+class ProfileNode(GetNodeByUser, DjangoObjectType):
     original_id = graphene.Int()
+    profile_image = graphene.String()
 
     class Meta:
-        model = CustomerService
+        model = Profile
+        exclude_fields = ['profile_image']
+        interfaces = (graphene.relay.Node, )
 
     def resolve_original_id(self, args, context, info):
         return self.id
+
+    def resolve_profile_image(self, args, context, info):
+        return self.profile_image.url if self.profile_image else ""
 
 
 class UserNode(GetNodeByUser, DjangoObjectType):

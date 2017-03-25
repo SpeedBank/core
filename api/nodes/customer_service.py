@@ -8,13 +8,18 @@ from accounts.models import CustomerService, Branch
 
 class CustomerServiceNode(DjangoObjectType):
     original_id = graphene.Int()
+    profile_image = graphene.String()
 
     class Meta:
         model = CustomerService
+        exclude_fields = ['profile_image']
         interfaces = (graphene.relay.Node, )
 
     def resolve_original_id(self, args, context, info):
         return self.id
+
+    def resolve_profile_image(self, args, context, info):
+        return self.profile_image.url if self.profile_image else ""
 
 
 class CreateCustomerService(CreateUpdateNode, graphene.relay.ClientIDMutation):

@@ -10,10 +10,12 @@ class BankNode(DjangoObjectType):
     original_id = graphene.Int()
     latitude = graphene.Float()
     longitude = graphene.Float()
+    logo = graphene.String()
+    banner = graphene.String()
 
     class Meta:
         model = Bank
-        exclude_fields = ['location']
+        exclude_fields = ['location', 'logo', 'banner']
         interfaces = (graphene.relay.Node, )
 
     def resolve_original_id(self, args, context, info):
@@ -25,6 +27,11 @@ class BankNode(DjangoObjectType):
     def resolve_longitude(self, args, context, info):
         return self.location.longitude
 
+    def resolve_logo(self, args, context, info):
+        return self.logo.url if self.logo else ""
+
+    def resolve_banner(self, args, context, info):
+        return self.banner.url if self.banner else ""
 
 
 class CreateBank(CreateUpdateNode, graphene.relay.ClientIDMutation):

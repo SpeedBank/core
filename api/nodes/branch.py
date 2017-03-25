@@ -10,10 +10,11 @@ class BranchNode(DjangoObjectType):
     original_id = graphene.Int()
     latitude = graphene.Float()
     longitude = graphene.Float()
+    banner = graphene.String()
 
     class Meta:
         model = Branch
-        exclude_fields = ['location']
+        exclude_fields = ['location', 'banner']
         interfaces = (graphene.relay.Node, )
 
     def resolve_original_id(self, args, context, info):
@@ -24,6 +25,10 @@ class BranchNode(DjangoObjectType):
 
     def resolve_longitude(self, args, context, info):
         return self.location.longitude
+
+    def resolve_banner(self, args, context, info):
+        return self.banner.url if self.banner else ""
+
 
 
 class CreateBranch(CreateUpdateNode, graphene.relay.ClientIDMutation):
