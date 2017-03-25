@@ -179,3 +179,9 @@ class InquiryInput(graphene.InputObjectType):
 class InquiryUpdateInput(graphene.InputObjectType):
     customer_service_id = graphene.Int(required=False)
     is_resolved = graphene.Boolean(required=False)
+
+
+class DiscussionInput(graphene.InputObjectType):
+    recipient_id = graphene.Int(required=True)
+    inquiry_id = graphene.Int(required=True)
+    message = graphene.String(required=True)
