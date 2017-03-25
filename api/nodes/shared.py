@@ -36,11 +36,16 @@ class CreateUpdateNode():
         return cls(record=record, errors=errors)
 
     @classmethod
-    def mutate_and_get_payload(cls, input, context, info):
+    def perform_extra(cls, record, args):
+        return record
+
+    @classmethod
+    def mutate_and_get_payload(cls, args, context, info):
         try:
-            record = cls.mutate_payload(input)
+            record = cls.mutate_payload(args)
             if cls.user:
                 record.user = context.user
+            record = cls.perform_extra(record, args)
             record.save()
             return cls.result(record)
         except ValidationError as e:

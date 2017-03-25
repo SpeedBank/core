@@ -19,6 +19,7 @@ class Bank(TimestampMixin):
 
 
 class Branch(TimestampMixin):
+    bank = models.ForeignKey(Bank, related_name="branches")
     name = models.CharField(max_length=255)
     sort_code = models.IntegerField()
     banner = models.CharField(max_length=255, null=True, blank=True)

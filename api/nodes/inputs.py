@@ -54,3 +54,32 @@ class BankUpdateInput(graphene.InputObjectType):
     country = graphene.String(required=False)
     latitude = graphene.Float(required=False)
     longitude = graphene.Float(required=False)
+
+
+class BranchInput(graphene.InputObjectType):
+    bank_id = graphene.Int(required=True)
+    name = graphene.String(required=True)
+    sort_code = graphene.Int(required=True)
+    banner = graphene.String(required=False)
+    email = graphene.String(required=True)
+    phone = graphene.String(required=True)
+    address = graphene.String(required=False)
+    city = graphene.String(required=False)
+    state = graphene.String(required=False)
+    country = graphene.String(required=False)
+    latitude = graphene.Float(required=False)
+    longitude = graphene.Float(required=False)
+
+
+class BranchUpdateInput(graphene.InputObjectType):
+    name = graphene.String(required=False)
+    sort_code = graphene.Int(required=False)
+    banner = graphene.String(required=False)
+    email = graphene.String(required=False)
+    phone = graphene.String(required=False)
+    address = graphene.String(required=False)
+    city = graphene.String(required=False)
+    state = graphene.String(required=False)
+    country = graphene.String(required=False)
+    latitude = graphene.Float(required=False)
+    longitude = graphene.Float(required=False)
