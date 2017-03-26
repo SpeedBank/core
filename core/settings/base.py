@@ -142,4 +142,20 @@ cloudinary.config(
   api_key = "927822459139272",
   api_secret = "TjOmm1YYA1rU8JmK8be4LT_6ocg"
 )
-CORS_URLS_REGEX = r'^/api.*$'
+CORS_ALLOW_HEADERS = (
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'TOKEN',
+    'x-requested-with',
+)
+CORS_ORIGIN_WHITELIST = (
+    '*',
+    'localhost:3000',
+)
+# CORS_URLS_REGEX = r'^/api.*$'
