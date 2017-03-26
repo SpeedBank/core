@@ -157,5 +157,7 @@ CORS_ALLOW_HEADERS = (
 CORS_ORIGIN_WHITELIST = (
     '*',
     'localhost:3000',
+    'speedbankfront.herokuapp.com',
+    'speedbanking.herokuapp.com',
 )
 # CORS_URLS_REGEX = r'^/api.*$'
