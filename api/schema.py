@@ -31,6 +31,8 @@ from api.nodes.order import (
     OrderNode, CreateOrder, UpdateOrder, DeleteOrder
 )
 
+from api.nodes.order_type import OrderTypeNode
+
 
 class Query(graphene.AbstractType):
     user = graphene.relay.Node.Field(UserNode)
@@ -68,6 +70,9 @@ class Query(graphene.AbstractType):
 
     order = graphene.relay.Node.Field(OrderNode)
     orders = DjangoFilterConnectionField(OrderNode)
+
+    order_type = graphene.relay.Node.Field(OrderTypeNode)
+    order_types = DjangoFilterConnectionField(OrderTypeNode)
 
 
 class Mutation(graphene.ObjectType):

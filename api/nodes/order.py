@@ -6,17 +6,6 @@ from .shared import CreateUpdateNode, DeleteNode
 from accounts.models import Order, Branch, OrderType, BankAccount
 
 
-class OrderTypeNode(DjangoObjectType):
-    original_id = graphene.Int()
-
-    class Meta:
-        model = OrderType
-        interfaces = (graphene.relay.Node, )
-
-    def resolve_original_id(self, args, context, info):
-        return self.id
-
-
 class OrderNode(DjangoObjectType):
     original_id = graphene.Int()
 
