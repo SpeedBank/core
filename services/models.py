@@ -16,9 +16,9 @@ class Faq(TimestampMixin):
 
 class Inquiry(TimestampMixin):
     user = models.ForeignKey(User, related_name="inquiries")
-    customer_service = models.ForeignKey(CustomerService, related_name="inquiries")
+    customer_service = models.ForeignKey(CustomerService, related_name="inquiries", null=True, blank=True)
     bank = models.ForeignKey(Bank, related_name="inquiries")
-    branch = models.ForeignKey(Branch, related_name="inquiries", null=True)
+    branch = models.ForeignKey(Branch, related_name="inquiries", null=True, blank=True)
     question = models.TextField()
     is_resolved = models.BooleanField(default=False)
 
