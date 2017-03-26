@@ -17,7 +17,7 @@ SECRET_KEY = dotenv.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -35,11 +35,13 @@ INSTALLED_APPS = [
     'services',
     'geoposition',
     'api',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -140,3 +142,4 @@ cloudinary.config(
   api_key = "927822459139272",
   api_secret = "TjOmm1YYA1rU8JmK8be4LT_6ocg"
 )
+CORS_URLS_REGEX = r'^/api.*$'
